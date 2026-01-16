@@ -42,7 +42,7 @@
     da = (da_type *)malloc(sizeof(da_type));                                   \
     T *data = (T *)malloc(sizeof(T) * cap);                                    \
     da->data = data;                                                           \
-    da->size = cap;                                                            \
+    da->size = 0;                                                              \
     da->capacity = cap;                                                        \
   } while (0)
 
@@ -74,22 +74,21 @@
   /* Define a new darray type `name<T>`                                        \
    * Declares and implements all common dynamic array methods */               \
   typedef DARRAY(T) name;                                                      \
-  name *name##_init() {                                                          \
+  name *name##_init() {                                                        \
     name *da;                                                                  \
     INIT_DARRAY(T, name, da, 256);                                             \
     return da;                                                                 \
   }                                                                            \
-  void name##_grow(name *da) { DARRAY_GROW(T, da); }                             \
-  void name##_delete(name *da) { DESTROY_DARRAY(da); }                           \
+  void name##_grow(name *da) { DARRAY_GROW(T, da); }                           \
+  void name##_delete(name *da) { DESTROY_DARRAY(da); }                         \
   void name##_append(name *da, T val) { DARRAY_APPEND(T, da, val); }
-
 
 #ifdef LBUCH_DARRAY_IMPLEMENTATION
 IMPLEMENT_DARRAY(int, da_int)
 IMPLEMENT_DARRAY(long, da_long)
 IMPLEMENT_DARRAY(float, da_float)
 IMPLEMENT_DARRAY(double, da_double)
-IMPLEMENT_DARRAY(char*, da_string)
+IMPLEMENT_DARRAY(char *, da_string)
 #endif
 
 #endif

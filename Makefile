@@ -1,13 +1,15 @@
 CC=gcc
 
-
+.PHONY: mkdir
 mkdir:
 	mkdir -p bin
 
-test_darray: mkdir
-	$(CC) test/test_darray.c -o bin/test_darray
-	./bin/test_darray
+.PHONY: test
+test: mkdir
+	$(CC) -g test/test.c -o bin/test
+	./bin/test
 
+.PHONY: install
 install:
 	sudo mkdir -p /usr/local/include/lbuch
 	sudo cp *.h /usr/local/include/lbuch

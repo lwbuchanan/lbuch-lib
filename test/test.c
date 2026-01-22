@@ -23,35 +23,36 @@ int test_eq(test_ctx *ctx, int exp, int act) {
   return 0;
 }
 
+
 void test_darray(test_ctx *ctx) {
     printf("%s\n== Testing darray.h ==\n", NRM);
 
     // Test append
-    da_int *da = da_int_init();
+    da_int *da = init_da_int();
     da_int_append(da, 1);
     test_eq(ctx, 1, da->data[0]);
     da_int_append(da, 2);
     test_eq(ctx, 2, da->data[1]);
     da_int_append(da, 3);
     test_eq(ctx, 3, da->data[2]);
-    da_int_delete(da);
+    delete_da_int(da);
 
     // Test grow
-    da = da_int_init();
+    da = init_da_int();
     test_eq(ctx, 256, da->capacity);
     da_int_grow(da);
     test_eq(ctx, 512, da->capacity);
-    da_int_delete(da);
+    delete_da_int(da);
 
     // Append a bunch
-    da = da_int_init();
+    da = init_da_int();
     for (int i = 0; i < 2047; i++) {
         da_int_append(da, i);
     }
     test_eq(ctx, 2048, da->capacity);
     test_eq(ctx, 2047, da->size);
     test_eq(ctx, 1111, da->data[1111]);
-    da_int_delete(da);
+    delete_da_int(da);
 }
 
 int main(int argc, char **argv) {

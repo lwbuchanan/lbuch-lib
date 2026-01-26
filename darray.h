@@ -85,6 +85,15 @@
   void name##_grow(name *da) { DARRAY_GROW(T, da); }                           \
   void name##_append(name *da, T val) { DARRAY_APPEND(T, da, val); }
 
+#define DECLARE_DARRAY(T, name)                                                \
+  /* Define a new darray type `name<T>`                                        \
+   * Declares and implements all common dynamic array methods */               \
+  typedef DARRAY(T) name;                                                      \
+  name *init_##name();                                                         \
+  void delete_##name(name *da);                                                \
+  void name##_grow(name *da);                                                  \
+  void name##_append(name *da, T val);
+
 #ifdef LBUCH_DARRAY_IMPLEMENTATION
 IMPLEMENT_DARRAY(int, da_int)
 IMPLEMENT_DARRAY(long, da_long)
